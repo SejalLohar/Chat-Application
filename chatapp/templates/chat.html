@@ -33,11 +33,9 @@
     </div>
 
     <script>
-        // Debug SDK loading
         console.log('Loading DeadSimpleChat SDK...');
         if (typeof DeadSimpleChat === 'undefined') {
             console.error('DeadSimpleChat SDK failed to load. Check network tab for https://deadsimplechat.com/sdk.js');
-            // Show welcome message even if SDK fails
             alert('Welcome to Chat Room!!');
         } else {
             const chatRoomId = 'X42KKYtPz';
@@ -47,7 +45,6 @@
                 chatRoomId: chatRoomId
             });
 
-            // Show welcome message on init
             console.log('Showing welcome message');
             alert('Welcome to Chat Room!!');
 
@@ -57,13 +54,12 @@
 
             DeadSimpleChat.onUserJoin(function(user) {
                 console.log(`${user} joined the chat.`);
-                if (user) { // Avoid undefined user
+                if (user) {
                     alert(`Welcome, ${user} to Chat Room!!`);
                 }
             });
         }
 
-        // Toggle button logic with error handling
         const toggleBtn = document.getElementById('toggleChat');
         const chatContainer = document.getElementById('chatContainer');
 
@@ -83,7 +79,5 @@
             });
         }
     </script>
-    <!-- Temporarily comment out Cloudflare script -->
-    <!-- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'930d8a1baf106735',t:'MTc0NDc0MjA5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script> -->
 </body>
 </html>

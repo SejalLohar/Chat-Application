@@ -1,16 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Django Chat App</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://deadsimplechat.com/sdk.js"></script>
 </head>
 <body>
-    <h1>Welcome to the Django Chat App</h1>
-    <iframe src="https://deadsimplechat.com/X42KKYtPz" width="100%" height="600px"></iframe>
-    <script src="https://deadsimplechat.com/sdk.js"></script>
-<script>
-    DeadSimpleChat.onMessage(function(message) {
-        console.log("New message:", message);
-    });
-</script>
+    <div class="container">
+        <header>
+            <h1><b> Chat Application</b></h1>
+        </header>
+        <nav class="navbar">
+            <a href="{% url 'home' %}">Home</a>
+            {% if user.is_authenticated %}
+                <a href="/logout/">Logout</a>
+            {% else %}
+                <a href="/login/">Login</a>
+            {% endif %}
+        </nav>
+        <main>
+            <button id="toggleChat" aria-label="Toggle chat visibility">Hide Chat</button>
+            <div id="chatContainer">
+                <iframe src="https://deadsimplechat.com/X42KKYtPz" allow="camera; microphone" title="Chat Room"></iframe>
+            </div>
+        </main>
+        <footer>
+            <p>© 2025 Django Chat App. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Debug SDK loading
+        console.log('Loading DeadSimpleChat SDK...');
+        if (typeof DeadSimpleChat === 'undefined') {
+            console.error('DeadSimpleChat SDK failed to load. Check network tab for https://deadsimplechat.com/sdk.js');
+            // Show welcome message even if SDK fails
+            alert('Welcome to Chat Room!!');
+        } else {
+            const chatRoomId = 'X42KKYtPz';
+
+            console.log('Initializing DeadSimpleChat');
+            DeadSimpleChat.init({
+                chatRoomId: chatRoomId
+            });
+
+            // Show welcome message on init
+            console.log('Showing welcome message');
+            alert('Welcome to Chat Room!!');
+
+            DeadSimpleChat.onMessage(function(message) {
+                console.log("New message:", message);
+            });
+
+            DeadSimpleChat.onUserJoin(function(user) {
+                console.log(`${user} joined the chat.`);
+                if (user) { // Avoid undefined user
+                    alert(`Welcome, ${user} to Chat Room!!`);
+                }
+            });
+        }
+
+        // Toggle button logic with error handling
+        const toggleBtn = document.getElementById('toggleChat');
+        const chatContainer = document.getElementById('chatContainer');
+
+        if (!toggleBtn || !chatContainer) {
+            console.error('Toggle button or chat container not found', { toggleBtn, chatContainer });
+        } else {
+            console.log('Toggle button and container found, adding event listener');
+            toggleBtn.addEventListener('click', function() {
+                console.log('Toggle button clicked, current display:', chatContainer.style.display);
+                if (chatContainer.style.display === 'none') {
+                    chatContainer.style.display = 'block';
+                    toggleBtn.textContent = 'Hide Chat';
+                } else {
+                    chatContainer.style.display = 'none';
+                    toggleBtn.textContent = 'Show Chat';
+                }
+            });
+        }
+    </script>
+    <!-- Temporarily comment out Cloudflare script -->
+    <!-- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'930d8a1baf106735',t:'MTc0NDc0MjA5Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script> -->
 </body>
 </html>

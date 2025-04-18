@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Django Chat App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Create Account</h1>
+        </header>
+        <main class="auth-form">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Register</button>
+            </form>
+            <p class="auth-links">
+                Already have an account? <a href="{% url 'login' %}">Login here</a>
+            </p>
+        </main>
+        <footer>
+            <p>© 2025 Django Chat App. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

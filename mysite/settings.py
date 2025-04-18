@@ -78,6 +78,10 @@ DATABASES = {
     }
 }
 
+# Login URL
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'chat'
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
@@ -95,6 +99,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Session security settings
+SESSION_COOKIE_SECURE = True  # Requires HTTPS
+SESSION_COOKIE_HTTPONLY = True  # Prevents JavaScript access
+SESSION_COOKIE_SAMESITE = 'Strict'  # Prevents CSRF
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/

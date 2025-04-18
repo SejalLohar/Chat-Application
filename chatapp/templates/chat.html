@@ -11,15 +11,10 @@
 <body>
     <div class="container">
         <header>
-            <h1><b> Chat Application</b></h1>
+            <h1><b>Chat Application</b></h1>
         </header>
         <nav class="navbar">
-            <a href="{% url 'home' %}">Home</a>
-            {% if user.is_authenticated %}
-                <a href="/logout/">Logout</a>
-            {% else %}
-                <a href="/login/">Login</a>
-            {% endif %}
+            <a href="{% url 'login' %}">Back to Login</a>
         </nav>
         <main>
             <button id="toggleChat" aria-label="Toggle chat visibility">Hide Chat</button>
@@ -28,7 +23,7 @@
             </div>
         </main>
         <footer>
-            <p>© 2025 Django Chat App. All rights reserved.</p>
+            <p> 2025 Django Chat App. All rights reserved.</p>
         </footer>
     </div>
 
